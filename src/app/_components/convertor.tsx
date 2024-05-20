@@ -23,6 +23,7 @@ const Convertor = () => {
 
     const handleSelectChange = (value: string) => {
         setSelectedItem(value)
+        setText('')
     }
 
     const handleConvert = (format: string | null) => {
@@ -78,6 +79,35 @@ const Convertor = () => {
         return values.some((row) => row.length !== keys.length)
     }
 
+    const handleCopyToClipboard = () => {
+        navigator.clipboard.writeText(JSON.stringify(json, null, 2))
+    }
+
+    const handleUploadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0]
+        if (file) {
+            const reader = new FileReader()
+            reader.onload = () => setText(reader.result as string)
+            reader.readAsText(file)
+        }
+    }
+
+    const handleDownloadFile = () => {
+        const blob = new Blob([JSON.stringify(json, null, 2)], {
+            type: 'application/json',
+        })
+        const url = URL.createObjectURL(blob)
+        const link = document.createElement('a')
+
+        Object.assign(link, {
+            href: url,
+            download: 'converted.json',
+        })
+
+        link.click()
+        URL.revokeObjectURL(url)
+    }
+
     return (
         <div className="w-full max-w-3xl bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
             <h1 className="text-3xl font-bold mb-6 text-center">
@@ -87,9 +117,19 @@ const Convertor = () => {
                 <UploadIcon className="h-12 w-12 text-gray-500 dark:text-gray-400 mb-4" />
                 <p className="text-gray-500 dark:text-gray-400 mb-4">
                     Drag and drop your file here or
-                    <button className="ml-1 text-blue-500 hover:underline">
+                    <label
+                        className="ml-1 text-blue-500 hover:underline"
+                        htmlFor="file-upload"
+                    >
                         click to upload
-                    </button>
+                    </label>
+                    <input
+                        id="file-upload"
+                        type="file"
+                        accept={`.${selectedItem}`}
+                        style={{ display: 'none' }}
+                        onChange={handleUploadFile}
+                    />
                 </p>
                 <div className="flex items-center gap-4">
                     <Select onValueChange={handleSelectChange}>
@@ -115,11 +155,19 @@ const Convertor = () => {
                 </pre>
             </div>
             <div className="flex justify-end">
-                <Button className="flex items-center gap-2" variant="outline">
+                <Button
+                    className="flex items-center gap-2"
+                    variant="outline"
+                    onClick={handleCopyToClipboard}
+                >
                     <CopyIcon className="h-4 w-4" />
                     Copy to Clipboard
                 </Button>
-                <Button className="flex items-center gap-2" variant="outline">
+                <Button
+                    className="flex items-center gap-2"
+                    variant="outline"
+                    onClick={handleDownloadFile}
+                >
                     <CopyIcon className="h-4 w-4" />
                     Download
                 </Button>
