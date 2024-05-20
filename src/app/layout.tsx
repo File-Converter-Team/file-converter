@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Rubik } from "next/font/google";
 import "./globals.css";
+import React from "react";
+import Header from "@/app/_components/header";
+import Footer from "@/app/_components/footer";
+import {cn} from "@/lib/utils";
 
-const inter = Inter({ subsets: ["latin"] });
+const rubik = Rubik({
+  subsets: ["latin"],
+  variable: "--font-sans"
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,8 +22,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className="scroll-smooth h-full">
+    <body className={cn(
+      "min-h-screen bg-background font-sans antialiased flex flex-col overflow-x-hidden",
+      rubik.variable
+    )}>
+      <Header/>
+        <main className="w-full grow">
+          {children}
+        </main>
+      <Footer/>
+    </body>
     </html>
-  );
+);
 }
