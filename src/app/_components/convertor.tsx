@@ -12,11 +12,18 @@ import {
 import { useState } from 'react'
 import useConverter from './hooks/useConverter'
 import { parserCSV, parserJS } from './utils/parsers'
+import useDragAndDrop from './hooks/useDragAndDrop'
 
 const Convertor = () => {
     const [text, setText] = useState<string | null>(null)
     const [selectedItem, setSelectedItem] = useState<string | null>(null)
-
+    const {
+        dragging,
+        handleDragEnter,
+        handleDragLeave,
+        handleDragOver,
+        handleDrop,
+    } = useDragAndDrop()
     const converters: any = {
         js: {
             parser: parserJS,
@@ -32,15 +39,16 @@ const Convertor = () => {
 
     const handleSelectChange = (value: string) => {
         setSelectedItem(value)
-        setText(null)
     }
 
     const handleCopyToClipboard = () => {
         navigator.clipboard.writeText(JSON.stringify(json, null, 2))
     }
 
-    const handleUploadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0]
+    const handleUploadFile = (event: any) => {
+        const file = dragging
+            ? event.dataTransfer.files?.[0]
+            : event.target.files?.[0]
         if (file) {
             const reader = new FileReader()
             reader.onload = () => setText(reader.result as string)
@@ -69,7 +77,17 @@ const Convertor = () => {
             <h1 className="text-3xl font-bold mb-6 text-center">
                 File to JSON Converter
             </h1>
-            <div className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 mb-8">
+            <div
+                className={`flex flex-col items-center justify-center border-2 border-dashed rounded-lg p-8 mb-8 ${
+                    dragging
+                        ? 'border-blue-500'
+                        : 'border-gray-300 dark:border-gray-600'
+                }`}
+                onDragEnter={handleDragEnter}
+                onDragLeave={handleDragLeave}
+                onDragOver={handleDragOver}
+                onDrop={(event) => handleDrop(event, handleUploadFile)}
+            >
                 <UploadIcon className="h-12 w-12 text-gray-500 dark:text-gray-400 mb-4" />
                 <p className="text-gray-500 dark:text-gray-400 mb-4">
                     Drag and drop your file here or
