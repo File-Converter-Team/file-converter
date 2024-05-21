@@ -10,73 +10,29 @@ import {
     SelectValue,
 } from '@/app/_components/ui/select'
 import { useState } from 'react'
+import useConverter from './hooks/useConverter'
+import { parserCSV, parserJS } from './utils/parsers'
 
 const Convertor = () => {
-    const initialJson = JSON.parse(
-        `[{"Id": "1","Name": "Artem","Age": "19"},
-        {"Id": "2","Name": "Sasha","Age": "17"}]`,
-    )
-
-    const [json, setJson] = useState(initialJson)
-    const [text, setText] = useState('')
+    const [text, setText] = useState<string | null>(null)
     const [selectedItem, setSelectedItem] = useState<string | null>(null)
+
+    const converters: any = {
+        js: {
+            parser: parserJS,
+            error: 'Error: invalid JavaScript data',
+        },
+        csv: {
+            parser: parserCSV,
+            error: 'Error: invalid CSV data',
+        },
+    }
+
+    const { json, error, converter } = useConverter(converters)
 
     const handleSelectChange = (value: string) => {
         setSelectedItem(value)
-        setText('')
-    }
-
-    const handleConvert = (format: string | null) => {
-        if (format === 'csv') {
-            const parsedData = parserCSV(text)
-            if (parsedData) {
-                const { keys, values } = parsedData
-                setJson(convertToJSON(keys, values))
-            } else setJson('Error: invalid CSV data')
-        } else if (format === 'js') {
-            const parsedData = parserJS(text)
-            if (parsedData) {
-                setJson(parsedData)
-            } else setJson('Error: invalid JavaScript data')
-        } else return setJson('Error: select file type')
-    }
-
-    const parserCSV = (data: string) => {
-        const lines = data.split('\n')
-        const keys = lines[0].split(',').map((key) => key.trim())
-        const values = lines
-            .slice(1)
-            .map((row) => row.split(',').map((value) => value.trim()))
-
-        return checkValues(keys, values) ? null : { keys, values }
-    }
-
-    const parserJS = (data: string) => {
-        try {
-            return eval(`${data}`)
-        } catch (error) {
-            console.error('Error:', error)
-            return null
-        }
-    }
-
-    const convertToJSON = (keys: string[], values: string[][]) => {
-        const json: any[] = []
-
-        values.forEach((row) => {
-            const newObject: { [key: string]: string } = {}
-            row.map((value, index) => {
-                newObject[keys[index]] = value
-            })
-            json.push(newObject)
-        })
-
-        return json
-    }
-
-    const checkValues = (keys: string[], values: string[][]) => {
-        if (values.length === 0 || keys[0] === '') return true
-        return values.some((row) => row.length !== keys.length)
+        setText(null)
     }
 
     const handleCopyToClipboard = () => {
@@ -143,7 +99,7 @@ const Convertor = () => {
                     </Select>
                     <Button
                         variant="ghost"
-                        onClick={() => handleConvert(selectedItem)}
+                        onClick={() => converter(selectedItem, text)}
                     >
                         Convert to JSON
                     </Button>
@@ -151,7 +107,7 @@ const Convertor = () => {
             </div>
             <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 mb-8">
                 <pre className="text-left text-sm font-mono text-gray-800 dark:text-gray-200 overflow-auto max-h-96">
-                    {JSON.stringify(json, null, 2)}
+                    {error ? error : JSON.stringify(json, null, 2)}
                 </pre>
             </div>
             <div className="flex justify-end">
