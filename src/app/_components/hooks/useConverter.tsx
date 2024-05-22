@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 
-const useConverter = (converters: any) => {
+const useConverter = (converters: any, text: any) => {
     const exampleText = `[
       {"Id": "1","Name": "Artem","Age": "19"},
       {"Id": "2","Name": "Sasha","Age": "17"}
@@ -25,7 +25,7 @@ const useConverter = (converters: any) => {
                 setError(errorSelectFile)
             }
         },
-        [converters],
+        [converters, text],
     )
 
     return { json, error, converter }

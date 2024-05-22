@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@/app/_components/ui/button'
-import { CopyIcon, UploadIcon } from 'lucide-react'
+import { CopyIcon, UploadIcon, DownloadIcon, XIcon } from 'lucide-react'
 import {
     Select,
     SelectContent,
@@ -17,6 +17,7 @@ import useDragAndDrop from './hooks/useDragAndDrop'
 const Convertor = () => {
     const [text, setText] = useState<string | null>(null)
     const [selectedItem, setSelectedItem] = useState<string | null>(null)
+    const [fileName, setFileName] = useState<string | null>(null)
     const {
         dragging,
         handleDragEnter,
@@ -24,6 +25,7 @@ const Convertor = () => {
         handleDragOver,
         handleDrop,
     } = useDragAndDrop()
+
     const converters: any = {
         js: {
             parser: parserJS,
@@ -35,7 +37,7 @@ const Convertor = () => {
         },
     }
 
-    const { json, error, converter } = useConverter(converters)
+    const { json, error, converter } = useConverter(converters, text)
 
     const handleSelectChange = (value: string) => {
         setSelectedItem(value)
@@ -53,6 +55,7 @@ const Convertor = () => {
             const reader = new FileReader()
             reader.onload = () => setText(reader.result as string)
             reader.readAsText(file)
+            setFileName(file.name)
         }
     }
 
@@ -78,7 +81,7 @@ const Convertor = () => {
                 File to JSON Converter
             </h1>
             <div
-                className={`flex flex-col items-center justify-center border-2 border-dashed rounded-lg p-8 mb-8 ${
+                className={`flex flex-col items-center justify-center border-4 border-dashed rounded-md p-8 mb-8 ${
                     dragging
                         ? 'border-blue-500'
                         : 'border-gray-300 dark:border-gray-600'
@@ -88,6 +91,20 @@ const Convertor = () => {
                 onDragOver={handleDragOver}
                 onDrop={(event) => handleDrop(event, handleUploadFile)}
             >
+                {fileName && (
+                    <Button
+                        className="mb-2 flex items-center gap-2 w-full sm:w-auto hover:bg-red-200 hover:border-gray-400"
+                        variant="outline"
+                        onClick={() => {
+                            setFileName(null)
+                            setText(null)
+                        }}
+                    >
+                        <XIcon className="h-4 w-4" />
+                        {fileName}
+                    </Button>
+                )}
+
                 <UploadIcon className="h-12 w-12 text-gray-500 dark:text-gray-400 mb-4" />
                 <p className="text-gray-500 dark:text-gray-400 mb-4">
                     Drag and drop your file here or
@@ -128,9 +145,9 @@ const Convertor = () => {
                     {error ? error : JSON.stringify(json, null, 2)}
                 </pre>
             </div>
-            <div className="flex justify-end">
+            <div className="flex flex-col items-center justify-end gap-4 sm:flex-row">
                 <Button
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-2 w-full sm:w-auto"
                     variant="outline"
                     onClick={handleCopyToClipboard}
                 >
@@ -138,11 +155,11 @@ const Convertor = () => {
                     Copy to Clipboard
                 </Button>
                 <Button
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-2 w-full sm:w-auto"
                     variant="outline"
                     onClick={handleDownloadFile}
                 >
-                    <CopyIcon className="h-4 w-4" />
+                    <DownloadIcon className="h-4 w-4" />
                     Download
                 </Button>
             </div>
