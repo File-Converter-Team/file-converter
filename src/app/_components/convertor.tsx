@@ -11,7 +11,7 @@ import {
 } from '@/app/_components/ui/select'
 import { useState } from 'react'
 import useConverter from './hooks/useConverter'
-import { parserCSV, parserJS } from './utils/parsers'
+import { parserCSV, parserJS, parserXML } from './utils/parsers'
 import useDragAndDrop from './hooks/useDragAndDrop'
 
 const Convertor = () => {
@@ -34,6 +34,10 @@ const Convertor = () => {
         csv: {
             parser: parserCSV,
             error: 'Error: invalid CSV data',
+        },
+        xml: {
+            parser: parserXML,
+            error: 'Error: invalid XML data',
         },
     }
 
@@ -130,6 +134,7 @@ const Convertor = () => {
                         <SelectContent>
                             <SelectItem value="csv">CSV</SelectItem>
                             <SelectItem value="js">JavaScript</SelectItem>
+                            <SelectItem value="xml">XML</SelectItem>
                         </SelectContent>
                     </Select>
                     <Button

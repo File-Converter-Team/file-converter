@@ -1,3 +1,5 @@
+import { parseString } from 'xml2js'
+
 const parserCSV = (data: string) => {
     if (data === null) return data
 
@@ -19,6 +21,18 @@ const parserJS = (data: string) => {
     }
 }
 
+const parserXML = (data: string) => {
+    if (data === null) return data
+    let result: any
+    parseString(data, (err: any, parsedResult: any) => {
+        if (err) {
+            return null
+        }
+        result = parsedResult
+    })
+    return result
+}
+
 const convertToJSON = (keys: string[], values: string[][]) => {
     const json: any[] = []
 
@@ -38,4 +52,4 @@ const checkValues = (keys: string[], values: string[][]) => {
     return values.some((row) => row.length !== keys.length)
 }
 
-export { parserCSV, parserJS }
+export { parserCSV, parserJS, parserXML }
