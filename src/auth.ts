@@ -11,6 +11,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   adapter: PrismaAdapter(prisma),
   pages: {
-    signIn: "/auth?tab=signin",
+    signIn: "/auth",
   }
 });
