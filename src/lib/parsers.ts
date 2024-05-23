@@ -31,7 +31,7 @@ const parserXML = (data: string) => {
         }
         result = parsedResult
     })
-    return result
+    return result ? result : null
 }
 
 const convertToJSON = (keys: string[], values: string[][]) => {
