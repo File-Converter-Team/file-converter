@@ -1,16 +1,15 @@
+'use client';
+
 import Link from "next/link";
 import {FileIcon} from "lucide-react";
 import React from "react";
-import {usePathname} from "next/navigation";
 import {Avatar, AvatarFallback, AvatarImage} from "@/app/_components/ui/avatar";
 import {Button} from "@/app/_components/ui/button";
 import {signOut, useSession} from "next-auth/react";
-import {headers} from "next/headers";
-import {auth} from "@/auth";
 
-const Header = async () => {
-  const session = await auth();
 
+const Header = () => {
+  const {data: session} = useSession();
   return (
     <header className="w-full bg-gray-900 py-6 px-4 md:px-6">
       <div className="container mx-auto flex items-center justify-between">
