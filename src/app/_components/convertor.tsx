@@ -14,7 +14,7 @@ import useConverter from '@/hooks/useConverter'
 import useDragAndDrop from '@/hooks/useDragAndDrop'
 
 const Convertor = () => {
-    const [text, setText] = useState<string | null>(null)
+    const [text, setText] = useState<string | null>('')
     const [selectedItem, setSelectedItem] = useState<string | null>(null)
     const [fileName, setFileName] = useState<string | null>(null)
     const {
