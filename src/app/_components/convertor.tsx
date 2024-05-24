@@ -85,7 +85,7 @@ const Convertor = () => {
                         variant="outline"
                         onClick={() => {
                             setFileName(null)
-                            setText(null)
+                            setText('')
                         }}
                     >
                         <XIcon className="h-4 w-4" />
