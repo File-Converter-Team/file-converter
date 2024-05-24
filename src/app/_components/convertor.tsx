@@ -1,25 +1,15 @@
 'use client'
 
-import { Button } from '@/app/_components/ui/button'
-import {CopyIcon, UploadIcon, DownloadIcon, XIcon, SaveIcon} from 'lucide-react'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/app/_components/ui/select'
-import {FC, useState} from 'react'
+import {Button} from '@/app/_components/ui/button'
+import {CopyIcon, DownloadIcon, SaveIcon, UploadIcon, XIcon} from 'lucide-react'
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from '@/app/_components/ui/select'
+import {useState} from 'react'
 import useConverter from '@/hooks/useConverter'
 import useDragAndDrop from '@/hooks/useDragAndDrop'
 import {useSession} from "next-auth/react";
 import {uploadFile} from "@/lib/uploadFile";
 
-interface ConvertorProps {
-  userId: string | null;
-}
-
-const Convertor: FC<ConvertorProps> = ({ userId }) => {
+const Convertor = () => {
   const [text, setText] = useState<string>('')
   const [selectedItem, setSelectedItem] = useState<string | null>(null)
   const [fileName, setFileName] = useState<string | null>(null)
@@ -44,8 +34,8 @@ const Convertor: FC<ConvertorProps> = ({ userId }) => {
   }
 
   const handleSaveFile = async () => {
-    if (file && userId) {
-      await uploadFile(file, userId);
+    if (file && session) {
+      await uploadFile(file, session?.user?.email as string);
     }
   }
 

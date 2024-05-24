@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import {parserCSV, parserJS, parserXML} from "@/lib/parsers";
-import {Converters} from "@/types";
+import {Converters} from "@/types/converters";
 
 const converters: Converters = {
     js: {
