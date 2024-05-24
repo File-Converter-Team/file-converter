@@ -10,9 +10,8 @@ import {
     SelectValue,
 } from '@/app/_components/ui/select'
 import { useState } from 'react'
-import useConverter from './hooks/useConverter'
-import { parserCSV, parserJS, parserXML } from './utils/parsers'
-import useDragAndDrop from './hooks/useDragAndDrop'
+import useConverter from '@/hooks/useConverter'
+import useDragAndDrop from '@/hooks/useDragAndDrop'
 
 const Convertor = () => {
     const [text, setText] = useState<string | null>(null)
@@ -26,22 +25,7 @@ const Convertor = () => {
         handleDrop,
     } = useDragAndDrop()
 
-    const converters: any = {
-        js: {
-            parser: parserJS,
-            error: 'Error: invalid JavaScript data',
-        },
-        csv: {
-            parser: parserCSV,
-            error: 'Error: invalid CSV data',
-        },
-        xml: {
-            parser: parserXML,
-            error: 'Error: invalid XML data',
-        },
-    }
-
-    const { json, error, converter } = useConverter(converters, text)
+    const { json, error, converter } = useConverter(text)
 
     const handleSelectChange = (value: string) => {
         setSelectedItem(value)
@@ -85,7 +69,7 @@ const Convertor = () => {
                 File to JSON Converter
             </h1>
             <div
-                className={`flex flex-col items-center justify-center border-4 border-dashed rounded-md p-8 mb-8 ${
+                className={`flex flex-col items-center justify-center border-2 border-dashed rounded-md p-8 mb-8 ${
                     dragging
                         ? 'border-blue-500'
                         : 'border-gray-300 dark:border-gray-600'

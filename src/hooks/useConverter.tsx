@@ -1,6 +1,23 @@
 import { useCallback, useState } from 'react'
+import {parserCSV, parserJS, parserXML} from "@/lib/parsers";
+import {Converters} from "@/types";
 
-const useConverter = (converters: any, text: any) => {
+const converters: Converters = {
+    js: {
+        parser: parserJS,
+        error: 'Error: invalid JavaScript data',
+    },
+    csv: {
+        parser: parserCSV,
+        error: 'Error: invalid CSV data',
+    },
+    xml: {
+        parser: parserXML,
+        error: 'Error: invalid XML data',
+    },
+}
+
+const useConverter = (text: any) => {
     const exampleText = `[
       {"Id": "1","Name": "Artem","Age": "19"},
       {"Id": "2","Name": "Sasha","Age": "17"}

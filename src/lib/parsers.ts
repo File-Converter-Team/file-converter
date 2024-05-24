@@ -1,7 +1,7 @@
 import { parseString } from 'xml2js'
 
 const parserCSV = (data: string) => {
-    if (data === null) return data
+    if (!data.trim()) return null
 
     const lines = data.split('\n')
     const keys = lines[0].split(',').map((key) => key.trim())
@@ -13,16 +13,17 @@ const parserCSV = (data: string) => {
 }
 
 const parserJS = (data: string) => {
+    if (!data.trim()) return null
+
     try {
         return eval(`${data}`)
     } catch (error) {
-        console.error('Error:', error)
         return null
     }
 }
 
 const parserXML = (data: string) => {
-    if (data === null) return data
+    if (!data.trim()) return null
     let result: any
     parseString(data, (err: any, parsedResult: any) => {
         if (err) {
