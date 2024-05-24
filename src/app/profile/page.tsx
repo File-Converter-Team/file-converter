@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
+import LoadPage from './load'
 
 const Profile = () => {
     const { data: session, status } = useSession()
@@ -18,9 +19,7 @@ const Profile = () => {
 
     if (!session?.user) {
         return (
-            <div>
-                <h1>Loading...</h1>
-            </div>
+            <LoadPage/>
         )
     }
 
