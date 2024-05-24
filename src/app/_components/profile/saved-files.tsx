@@ -1,5 +1,5 @@
 import {FC} from 'react';
-import {DownloadIcon, EllipsisVerticalIcon, FileIcon, TrashIcon, TypeIcon} from "lucide-react";
+import {ArrowLeftRightIcon, DownloadIcon, EllipsisVerticalIcon, FileIcon, TrashIcon, TypeIcon} from "lucide-react";
 import {Card, CardContent} from "@/app/_components/ui/card";
 import {
   DropdownMenu,
@@ -25,6 +25,7 @@ const SavedFiles: FC<RecentFilesProps> = () => {
                 <p className="text-xs text-gray-500 dark:text-gray-400">CSV</p>
               </div>
             </div>
+            <p className="text-xs text-gray-500 dark:text-gray-400">May 20, 2024</p>
             <div className="relative">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -35,7 +36,7 @@ const SavedFiles: FC<RecentFilesProps> = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem>
-                    <TypeIcon className="mr-2 h-4 w-4"/>
+                    <ArrowLeftRightIcon className="mr-2 h-4 w-4"/>
                     Convert
                   </DropdownMenuItem>
                   <DropdownMenuItem>
@@ -49,7 +50,6 @@ const SavedFiles: FC<RecentFilesProps> = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
-            <p className="text-xs text-gray-500 dark:text-gray-400">May 20, 2024</p>
           </div>
         </CardContent>
       </Card>

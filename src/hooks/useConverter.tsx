@@ -17,7 +17,7 @@ const converters: Converters = {
     },
 }
 
-const useConverter = (text: any) => {
+const useConverter = (text: string) => {
     const exampleText = `[
       {"Id": "1","Name": "Artem","Age": "19"},
       {"Id": "2","Name": "Sasha","Age": "17"}
