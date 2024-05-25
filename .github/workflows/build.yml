@@ -10,10 +10,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18, 20]
-
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -21,14 +17,10 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'yarn'
-
-    - name: Install Yarn
-      run: npm install -g yarn
+        node-version: 20
 
     - name: Install dependencies
-      run: yarn install
+      run: npm install
 
     - name: Run tests
-      run: yarn test
+      run: npm test
