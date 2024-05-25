@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -23,9 +22,13 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
+        cache: 'yarn'
+
+    - name: Install Yarn
+      run: npm install -g yarn
 
     - name: Install dependencies
-      run: npm install
+      run: yarn install
 
     - name: Run tests
-      run: npm test
+      run: yarn test
