@@ -1,3 +1,4 @@
+'use client';
 import {FC} from "react";
 import {Card, CardContent} from "@/app/_components/ui/card";
 import {ArrowLeftRightIcon, DownloadIcon, EllipsisVerticalIcon, FileIcon, TrashIcon} from "lucide-react";
@@ -12,7 +13,9 @@ import {getFileExtension} from "@/lib/getFileExtension";
 import {getFileName} from "@/lib/getFileName";
 import {S3File} from "@/types/file";
 import {convertDate} from "@/lib/convertDate";
-
+import {s3URL} from "@/lib/s3";
+import {deleteFile} from "@/lib/deleteFile";
+import {revalidatePath} from "next/cache";
 interface FileCardProps {
   file: S3File;
 }
@@ -21,6 +24,29 @@ const FileCard: FC<FileCardProps> = ({ file }) => {
   const fileName = getFileName(file.Key);
   const extension = getFileExtension(file.Key);
   const date = convertDate(file.LastModified);
+  const fileURL = s3URL + file.Key;
+
+  const handleDownloadFile = () => {
+    fetch(fileURL)
+      .then(response => response.blob())
+      .then(data => {
+        const blob = new Blob([data], { type: 'text/javascript' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      })
+      .catch(error => console.error('Error downloading the file:', error));
+  }
+
+  const handleDeleteFile = async () => {
+    await deleteFile(file.Key);
+    document.location.reload();
+  }
 
   return (
     <Card className="bg-gray-100 dark:bg-gray-800">
@@ -47,11 +73,11 @@ const FileCard: FC<FileCardProps> = ({ file }) => {
                   <ArrowLeftRightIcon className="mr-2 h-4 w-4"/>
                   Convert
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={handleDownloadFile}>
                   <DownloadIcon className="mr-2 h-4 w-4"/>
                   Download
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={handleDeleteFile}>
                   <TrashIcon className="mr-2 h-4 w-4"/>
                   Delete
                 </DropdownMenuItem>

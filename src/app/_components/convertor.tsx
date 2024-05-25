@@ -8,6 +8,7 @@ import useConverter from '@/hooks/useConverter'
 import useDragAndDrop from '@/hooks/useDragAndDrop'
 import {useSession} from "next-auth/react";
 import {uploadFile} from "@/lib/uploadFile";
+import {revalidatePath} from "next/cache";
 
 const Convertor = () => {
   const [text, setText] = useState<string>('')
@@ -22,7 +23,6 @@ const Convertor = () => {
     handleDrop,
   } = useDragAndDrop()
   const { data: session } = useSession();
-  console.log(file)
   const { json, error, converter } = useConverter(text)
 
   const handleSelectChange = (value: string) => {

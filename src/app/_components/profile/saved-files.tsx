@@ -9,7 +9,7 @@ interface RecentFilesProps {
 
 const SavedFiles: FC<RecentFilesProps> = async () => {
   const session = await auth();
-  const files = await getUserFiles(session?.user?.email as string) as S3File[];
+  const files = await getUserFiles(session?.user?.email as string) as S3File[] || [];
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {files.map((file) => (

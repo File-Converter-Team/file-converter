@@ -14,7 +14,6 @@ export const uploadFile = async (file: File, email: string) => {
   const command = new PutObjectCommand(params);
   try {
     const response = await s3Client.send(command);
-    console.log(response);
   } catch (error) {
     console.error("Error uploading file", error);
   }
