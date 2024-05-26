@@ -5,3 +5,11 @@ export interface S3File {
   Size: number;
   StorageClass: string;
 };
+
+export type FileType = 'original' | 'converted';
+
+export interface FileGroup {
+  date: string;
+  original: S3File;
+  converted: S3File;
+}

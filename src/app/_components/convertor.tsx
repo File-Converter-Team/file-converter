@@ -8,7 +8,7 @@ import useConverter from '@/hooks/useConverter'
 import useDragAndDrop from '@/hooks/useDragAndDrop'
 import {useSession} from "next-auth/react";
 import {uploadFile} from "@/lib/uploadFile";
-import {revalidatePath} from "next/cache";
+import {createJSONFile} from "@/lib/createJSONFile";
 
 const Convertor = () => {
   const [text, setText] = useState<string>('')
@@ -34,8 +34,12 @@ const Convertor = () => {
   }
 
   const handleSaveFile = async () => {
-    if (file && session) {
-      await uploadFile(file, session?.user?.email as string);
+    const isExistFile = file && fileName && json;
+    if (isExistFile && session) {
+      const [JSONFileName, extension] = fileName.split('.');
+      const convertedFile = createJSONFile(JSON.stringify(json, null, 2), JSONFileName);
+      await uploadFile(convertedFile, session?.user?.email as string, 'converted', extension);
+      await uploadFile(file, session?.user?.email as string, 'original');
     }
   }
 
