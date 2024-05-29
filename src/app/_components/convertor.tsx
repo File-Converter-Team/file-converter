@@ -152,7 +152,7 @@ const Convertor: FC<ConvertorProps> = ({ inputFile = null, inputFileName = null 
         </div>
       </div>
       <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 mb-8">
-        <pre className="text-left text-sm font-mono text-gray-800 dark:text-gray-200 overflow-auto max-h-96">
+        <pre className="text-left text-sm font-mono text-gray-800 dark:text-gray-200 overflow-auto max-h-32">
             {error ? error : JSON.stringify(json, null, 2)}
         </pre>
       </div>
