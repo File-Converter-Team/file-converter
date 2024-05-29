@@ -4,7 +4,7 @@ import "./globals.css";
 import React from "react";
 import Header from "@/app/_components/header";
 import Footer from "@/app/_components/footer";
-import {cn} from "@/lib/utils";
+import {cn} from "@/lib/cn";
 import {auth} from "@/auth";
 import {SessionProvider} from "next-auth/react";
 

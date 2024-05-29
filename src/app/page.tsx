@@ -1,8 +1,9 @@
 import React from "react";
 import Convertor from "@/app/_components/convertor";
 import Overview from "@/app/_components/overview";
+import {auth} from "@/auth";
 
-export default function Home() {
+export default async function Home() {
   return (
     <>
       <Overview />

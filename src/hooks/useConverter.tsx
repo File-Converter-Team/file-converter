@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import {parserCSV, parserJS, parserXML} from "@/lib/parsers";
-import {Converters} from "@/types";
+import {Converters} from "@/types/converters";
 
 const converters: Converters = {
     js: {
@@ -17,7 +17,7 @@ const converters: Converters = {
     },
 }
 
-const useConverter = (text: any) => {
+const useConverter = (text: string) => {
     const exampleText = `[
       {"Id": "1","Name": "Artem","Age": "19"},
       {"Id": "2","Name": "Sasha","Age": "17"}
