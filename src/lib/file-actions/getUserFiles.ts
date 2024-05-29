@@ -1,5 +1,5 @@
 import {ListObjectsV2Command} from "@aws-sdk/client-s3";
-import {s3Client} from "@/lib/file-actions/s3";
+import {s3Client} from "@/lib/s3";
 
 export const getUserFiles = async (email: string) => {
   const params = {

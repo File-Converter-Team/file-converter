@@ -14,7 +14,7 @@ import { getFileExtension } from "@/lib/file-actions/getFileExtension";
 import { getFileName } from "@/lib/file-actions/getFileName";
 import { S3File } from "@/types/file";
 import { convertDate } from "@/lib/file-actions/convertDate";
-import { s3URL } from "@/lib/file-actions/s3";
+import { s3URL } from "@/lib/s3";
 import { deleteFile } from "@/lib/file-actions/deleteFile";
 import ConverterDialog from "@/app/_components/converter-dialog";
 import {createFileFromURL} from "@/lib/file-actions/createFileFromURL";

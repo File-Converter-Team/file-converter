@@ -1,5 +1,5 @@
 import {PutObjectCommand} from "@aws-sdk/client-s3";
-import {s3Client} from "@/lib/file-actions/s3";
+import {s3Client} from "@/lib/s3";
 import {FileType} from "@/types/file";
 
 export const uploadFile = async (file: File, email: string, type: FileType, extension = '') => {
