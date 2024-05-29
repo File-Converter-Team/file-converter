@@ -12,7 +12,7 @@ const Profile = async () => {
       <div className="flex items-center gap-6 p-6 md:p-8 lg:p-10">
         <Avatar className="h-16 w-16 md:h-20 md:w-20 lg:h-24 lg:w-24">
           <AvatarImage alt="@shadcn" src={session?.user?.image || undefined}/>
-          <AvatarFallback>{session?.user?.name}</AvatarFallback>
+          <AvatarFallback>{(session?.user?.name as string)[0]}</AvatarFallback>
         </Avatar>
         <div className="grid gap-1">
           <h1 className="text-2xl font-bold md:text-3xl lg:text-4xl">{session?.user?.name}</h1>
