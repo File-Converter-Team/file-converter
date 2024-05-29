@@ -1,9 +1,9 @@
 import {FC} from 'react';
 import {Table, TableHead, TableHeader, TableRow, TableBody, TableCell} from "@/app/_components/ui/table";
 import {auth} from "@/auth";
-import {getUserFiles} from "@/lib/getUserFiles";
+import {getUserFiles} from "@/lib/file-actions/getUserFiles";
 import {S3File} from "@/types/file";
-import {groupFilesByDate} from "@/lib/groupFilesByDate";
+import {groupFilesByDate} from "@/lib/file-actions/groupFilesByDate";
 import FileTableRow from "@/app/_components/file-table-row";
 
 interface RecentFilesProps {

@@ -8,9 +8,9 @@ import {
 import {Button} from "@/app/_components/ui/button";
 import {DownloadIcon, EllipsisVerticalIcon, EyeIcon} from "lucide-react";
 import {FileGroup} from "@/types/file";
-import {getFileName} from "@/lib/getFileName";
-import {getFileExtension} from "@/lib/getFileExtension";
-import {convertDate} from "@/lib/convertDate";
+import {getFileName} from "@/lib/file-actions/getFileName";
+import {getFileExtension} from "@/lib/file-actions/getFileExtension";
+import {convertDate} from "@/lib/file-actions/convertDate";
 
 const FileTableRow = ({ fileGroup }: { fileGroup: FileGroup }) => {
   const fileName = getFileName(fileGroup.original.Key);

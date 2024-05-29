@@ -1,9 +1,9 @@
 import {FC} from 'react';
-import {getUserFiles} from "@/lib/getUserFiles";
+import {getUserFiles} from "@/lib/file-actions/getUserFiles";
 import {auth} from "@/auth";
 import FileCard from "@/app/_components/file-card";
 import {S3File} from "@/types/file";
-import {groupFilesByDate} from "@/lib/groupFilesByDate";
+import {groupFilesByDate} from "@/lib/file-actions/groupFilesByDate";
 
 interface RecentFilesProps {
 }

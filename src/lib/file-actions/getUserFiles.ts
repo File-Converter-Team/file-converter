@@ -12,6 +12,6 @@ export const getUserFiles = async (email: string) => {
     const response = await s3Client.send(command);
     return response.Contents;
   } catch (error) {
-    console.error("Error getting user files", error);
+    console.error("Error getting user file-actions", error);
   }
 }
