@@ -22,13 +22,18 @@ const FilesHistory: FC<RecentFilesProps> = async () => {
             <TableHead className="text-gray-900 dark:text-gray-50">Original Format</TableHead>
             <TableHead className="text-gray-900 dark:text-gray-50">Converted Format</TableHead>
             <TableHead className="text-gray-900 dark:text-gray-50">Conversion Date</TableHead>
-            <TableHead className="text-right text-gray-900 dark:text-gray-50">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {groupedFiles.map((fileGroup) => (
+          {groupedFiles.length > 0 ? groupedFiles.map((fileGroup) => (
             <FileTableRow fileGroup={fileGroup} key={fileGroup.original.Key} />
-          ))}
+          )) : (
+            <TableRow>
+              <TableCell colSpan={4} className="text-center text-gray-900 dark:text-gray-50">
+                No files found
+              </TableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
     </div>

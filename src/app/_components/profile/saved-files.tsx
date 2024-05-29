@@ -14,9 +14,13 @@ const SavedFiles: FC<RecentFilesProps> = async () => {
   const groupedFiles = groupFilesByDate(files);
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      {groupedFiles.map((file) => (
+      {groupedFiles.length > 0 ? groupedFiles.map((file) => (
         <FileCard file={file.original} key={file.original.Key} />
-      ))}
+      )) : (
+        <div className="text-center text-gray-900 dark:text-gray-50">
+          No files found
+        </div>
+      )}
     </div>
   );
 };

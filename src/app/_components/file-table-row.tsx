@@ -23,26 +23,6 @@ const FileTableRow = ({ fileGroup }: { fileGroup: FileGroup }) => {
       <TableCell className="text-gray-900 dark:text-gray-50">{extension.toUpperCase()}</TableCell>
       <TableCell className="text-gray-900 dark:text-gray-50">JSON</TableCell>
       <TableCell className="text-gray-900 dark:text-gray-50">{date}</TableCell>
-      <TableCell className="text-right">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button className="ml-auto" size="icon" variant="ghost">
-              <EllipsisVerticalIcon className="h-4 w-4 text-gray-500 dark:text-gray-400"/>
-              <span className="sr-only">File actions</span>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem>
-              <EyeIcon className="mr-2 h-4 w-4"/>
-              View
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <DownloadIcon className="mr-2 h-4 w-4"/>
-              Download original
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </TableCell>
     </TableRow>
   )
 }
