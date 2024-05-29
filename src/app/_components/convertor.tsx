@@ -3,18 +3,23 @@
 import {Button} from '@/app/_components/ui/button'
 import {CopyIcon, DownloadIcon, SaveIcon, UploadIcon, XIcon} from 'lucide-react'
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from '@/app/_components/ui/select'
-import {useState} from 'react'
+import {FC, useEffect, useState} from 'react'
 import useConverter from '@/hooks/useConverter'
 import useDragAndDrop from '@/hooks/useDragAndDrop'
 import {useSession} from "next-auth/react";
 import {uploadFile} from "@/lib/uploadFile";
 import {createJSONFile} from "@/lib/createJSONFile";
 
-const Convertor = () => {
+interface ConvertorProps {
+  inputFile?: File;
+  inputFileName?: string;
+}
+
+const Convertor: FC<ConvertorProps> = ({ inputFile = null, inputFileName = null }) => {
   const [text, setText] = useState<string>('')
   const [selectedItem, setSelectedItem] = useState<string | null>(null)
-  const [fileName, setFileName] = useState<string | null>(null)
-  const [file, setFile] = useState<File | null>(null)
+  const [fileName, setFileName] = useState<string | null>(inputFileName)
+  const [file, setFile] = useState<File | null>(inputFile);
   const {
     dragging,
     handleDragEnter,
@@ -24,6 +29,14 @@ const Convertor = () => {
   } = useDragAndDrop()
   const { data: session } = useSession();
   const { json, error, converter } = useConverter(text)
+
+  useEffect(() => {
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = () => setText(reader.result as string)
+      reader.readAsText(file)
+    }
+  }, []);
 
   const handleSelectChange = (value: string) => {
     setSelectedItem(value)
