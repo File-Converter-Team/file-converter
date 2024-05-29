@@ -10,14 +10,14 @@ import {
   DropdownMenuTrigger
 } from "@/app/_components/ui/dropdown-menu";
 import { Button } from "@/app/_components/ui/button";
-import { getFileExtension } from "@/lib/getFileExtension";
-import { getFileName } from "@/lib/getFileName";
+import { getFileExtension } from "@/lib/file-actions/getFileExtension";
+import { getFileName } from "@/lib/file-actions/getFileName";
 import { S3File } from "@/types/file";
-import { convertDate } from "@/lib/convertDate";
-import { s3URL } from "@/lib/s3";
-import { deleteFile } from "@/lib/deleteFile";
+import { convertDate } from "@/lib/file-actions/convertDate";
+import { s3URL } from "@/lib/file-actions/s3";
+import { deleteFile } from "@/lib/file-actions/deleteFile";
 import ConverterDialog from "@/app/_components/converter-dialog";
-import {createFileFromURL} from "@/lib/createFileFromURL";
+import {createFileFromURL} from "@/lib/file-actions/createFileFromURL";
 
 interface FileCardProps {
   file: S3File;

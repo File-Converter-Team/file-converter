@@ -7,8 +7,8 @@ import {FC, useEffect, useState} from 'react'
 import useConverter from '@/hooks/useConverter'
 import useDragAndDrop from '@/hooks/useDragAndDrop'
 import {useSession} from "next-auth/react";
-import {uploadFile} from "@/lib/uploadFile";
-import {createJSONFile} from "@/lib/createJSONFile";
+import {uploadFile} from "@/lib/file-actions/uploadFile";
+import {createJSONFile} from "@/lib/file-actions/createJSONFile";
 
 interface ConvertorProps {
   inputFile?: File;

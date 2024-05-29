@@ -1,5 +1,5 @@
 import {ListObjectsV2Command} from "@aws-sdk/client-s3";
-import {s3Client} from "@/lib/s3";
+import {s3Client} from "@/lib/file-actions/s3";
 
 export const getUserFiles = async (email: string) => {
   const params = {
@@ -12,6 +12,6 @@ export const getUserFiles = async (email: string) => {
     const response = await s3Client.send(command);
     return response.Contents;
   } catch (error) {
-    console.error("Error getting user files", error);
+    console.error("Error getting user file-actions", error);
   }
 }
