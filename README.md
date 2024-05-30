@@ -4,6 +4,8 @@ This is a simple file converter that converts a file from any format to JSON. Th
 - JavaScript
 - XML
 
+## If you don't want to run the application locally, you can access it by clicking [here](https://file-converter-psi.vercel.app/).
+
 ## How to use
 Firstly you need to install the dependencies by running the following command:
 ```bash
@@ -19,9 +21,6 @@ Then you can open your browser and go to the following URL:
 ```
 http://localhost:3000
 ```
-
-### If you don't want to run the application locally, you can access it by clicking [here](https://file-converter-psi.vercel.app/).
-
 
 You can just convert your files, download and copy the JSON data.
 Also, you can authorize with your Google account or GitHub account to save your files in the cloud.
