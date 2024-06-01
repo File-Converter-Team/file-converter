@@ -9,6 +9,8 @@ import useDragAndDrop from '@/hooks/useDragAndDrop'
 import {useSession} from "next-auth/react";
 import {uploadFile} from "@/lib/file-actions/uploadFile";
 import {createJSONFile} from "@/lib/file-actions/createJSONFile";
+import {useToast} from "@/app/_components/ui/use-toast";
+import {successCopy, successUpload} from "@/constants/toast";
 
 interface ConvertorProps {
   inputFile?: File;
@@ -16,6 +18,7 @@ interface ConvertorProps {
 }
 
 const Convertor: FC<ConvertorProps> = ({ inputFile = null, inputFileName = null }) => {
+  const { toast } = useToast()
   const [text, setText] = useState<string>('')
   const [selectedItem, setSelectedItem] = useState<string | null>(null)
   const [fileName, setFileName] = useState<string | null>(inputFileName)
@@ -44,6 +47,7 @@ const Convertor: FC<ConvertorProps> = ({ inputFile = null, inputFileName = null 
 
   const handleCopyToClipboard = () => {
     navigator.clipboard.writeText(JSON.stringify(json, null, 2))
+    toast(successCopy)
   }
 
   const handleSaveFile = async () => {
@@ -54,6 +58,7 @@ const Convertor: FC<ConvertorProps> = ({ inputFile = null, inputFileName = null 
       await uploadFile(convertedFile, session?.user?.email as string, 'converted', extension);
       await uploadFile(file, session?.user?.email as string, 'original');
     }
+    toast(successUpload)
   }
 
   const handleUploadFile = (event: any) => {
@@ -83,6 +88,7 @@ const Convertor: FC<ConvertorProps> = ({ inputFile = null, inputFileName = null 
 
     link.click()
     URL.revokeObjectURL(url)
+
   }
 
   return (

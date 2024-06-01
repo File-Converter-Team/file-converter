@@ -7,6 +7,7 @@ import Footer from "@/app/_components/footer";
 import {cn} from "@/lib/cn";
 import {auth} from "@/auth";
 import {SessionProvider} from "next-auth/react";
+import {Toaster} from "@/app/_components/ui/toaster";
 
 const rubik = Rubik({
     subsets: ['latin'],
@@ -37,6 +38,7 @@ export default async function RootLayout({
             {children}
           </main>
         <Footer/>
+        <Toaster />
       </SessionProvider>
     </body>
     </html>
